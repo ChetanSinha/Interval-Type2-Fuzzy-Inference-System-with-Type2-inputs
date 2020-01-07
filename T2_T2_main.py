@@ -1,3 +1,6 @@
+import T2_T2_func as t2t2
+import numpy as np
+
 '''
 input format:
 x -- the starting value of the range.
@@ -19,22 +22,22 @@ w -- 2D tuple containing seperate UMF and LMF of weight(here).
 w_types -- list containg the linguistic terms for weight(here).
 '''
 w_types = input(f'Enter the fuzzy inputs for weight :').split(' ') 
-w = fuzz_IT2_Inputs(x_weight, w_types)
+w = t2t2.fuzz_IT2_Inputs(x_weight, w_types)
 
 h_types = input(f'Enter the fuzzy inputs for height :').split(' ') 
-h= fuzz_IT2_Inputs(x_height, h_types)
+h = t2t2.fuzz_IT2_Inputs(x_height, h_types)
 
 
 f_types = input(f'Enter the fuzzy inputs for fitness Level :').split(' ') 
-f = fuzz_IT2_Inputs(x_fitnessLevel, f_types)
+f = t2t2.fuzz_IT2_Inputs(x_fitnessLevel, f_types)
 
 
 '''
 Ploting the membership values for each of antecedent and consequent
 '''
-fuzz_IT2_plot_mf(x_weight, w, w_types, 'Weight')
-fuzz_IT2_plot_mf(x_height, h, h_types, 'Height')
-fuzz_IT2_plot_mf(x_fitnessLevel, f, f_types, 'Fitness Level')
+t2t2.fuzz_IT2_plot_mf(x_weight, w, w_types, 'Weight')
+t2t2.fuzz_IT2_plot_mf(x_height, h, h_types, 'Height')
+t2t2.fuzz_IT2_plot_mf(x_fitnessLevel, f, f_types, 'Fitness Level')
 
 
 '''
@@ -47,25 +50,25 @@ for i in range(len(f_types)):
 '''
 rule_lst -- list of rules decided
 '''
-rule_lst = fuzz_make_rules(w_types, h_types)
+rule_lst = t2t2.fuzz_make_rules(w_types, h_types)
 
 
 '''
 Taking Type 2 Fuzzy Inputs.
 '''
-weight = fuzz_IT2_Inputs(x_weight, ['weight'])
-height = fuzz_IT2_Inputs(x_height, ['height'])
+weight = t2t2.fuzz_IT2_Inputs(x_weight, ['weight'])
+height = t2t2.fuzz_IT2_Inputs(x_height, ['height'])
 
-fuzz_IT2_plot_mf(x_weight, weight, ['w1'], 'Weight Input')
-fuzz_IT2_plot_mf(x_height, height, ['h1'], 'Height Input')
+t2t2.fuzz_IT2_plot_mf(x_weight, weight, ['w1'], 'Weight Input')
+t2t2.fuzz_IT2_plot_mf(x_height, height, ['h1'], 'Height Input')
 
 
 
 '''
 x_memvalue -- membership value at a particular single value for the antecedent x(weight and height here).
 '''
-w_memvalue = fuzz_IT2_Interplot_mem(w, weight)
-h_memvalue = fuzz_IT2_Interplot_mem(h, height)
+w_memvalue = t2t2.fuzz_IT2_Interplot_mem(w, weight)
+h_memvalue = t2t2.fuzz_IT2_Interplot_mem(h, height)
 
 
 
@@ -73,33 +76,24 @@ h_memvalue = fuzz_IT2_Interplot_mem(h, height)
 rule -- 2D tuple of maped rule for upper and lower membership values.
 fitness_used -- list of fitness values decided based the rule_lst(to be used for ploting)
 '''
-rule, fitness_used = fuzz_mapRule(w_memvalue, h_memvalue, f, rule_lst)
+rule, fitness_used = t2t2.fuzz_mapRule(w_memvalue, h_memvalue, f, rule_lst)
 
 
-fuzz_plot_outputMf(x_fitnessLevel, rule, fitness_used)
+t2t2.fuzz_plot_outputMf(x_fitnessLevel, rule, fitness_used)
 
 
 '''
 R_combined -- 2D tuple containing aggregated rule for upper and lower membership values.
 '''
-R_combined = fuzz_IT2_aggregation(rule)
+R_combined = t2t2.fuzz_IT2_aggregation(rule)
 
 
 '''
 fitnessLevel -- output value(centroid value)
 fitness_activation -- corresponding membership value of output
 '''
-fitnessLevel, fitness_activation = fuzz_IT2_defuzz(x_fitnessLevel, R_combined)
+fitnessLevel, fitness_activation = t2t2.fuzz_IT2_defuzz(x_fitnessLevel, R_combined)
 
 
-R_combined[0]
-
-
-R_combined[1]
-
-
-fuzz_IT2_output(x_fitnessLevel, f, fitnessLevel, fitness_activation, R_combined)
-
-
-
+t2t2.fuzz_IT2_output(x_fitnessLevel, f, fitnessLevel, fitness_activation, R_combined)
 
